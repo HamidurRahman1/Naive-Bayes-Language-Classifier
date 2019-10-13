@@ -1,0 +1,6 @@
+train_pos_total_lines = 12500
+train_pos_total_words = 2958832
+
+train_neg_total_lines = 12500
+train_neg_total_words = 2885848
+
