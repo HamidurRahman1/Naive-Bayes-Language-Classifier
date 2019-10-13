@@ -4,3 +4,8 @@ train_pos_total_words = 2958832
 train_neg_total_lines = 12500
 train_neg_total_words = 2885848
 
+train_pos_total_unique = 161710
+train_pos_total_tokens = 170208
+
+train_pos_total_unique = 158913
+train_pos_total_tokens = 167493

@@ -45,3 +45,27 @@ def make_lines_from_dir(file_dir):
     return all_lines
 
 
+def read_strip_split_map_file(file_path):
+    file = open(file_path)
+    lines = file.readlines()
+    file_map = dict()
+    for line in lines:
+        splits = line.lower().rstrip().split()
+        words = list(filter(None, splits))
+        for word in words:
+            try:
+                file_map[word] += 1
+            except KeyError:
+                file_map[word] = 1
+    return file_map
+
+
+def read_strip_split_map_dir(directory):
+    directory_map = dict()
+    files = return_all_files(directory)
+    for file in files:
+        file_map = read_strip_split_map_file(directory+file)
+        directory_map.update(file_map)
+    return directory_map
+
+
