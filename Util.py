@@ -3,6 +3,18 @@ import os
 from string import punctuation
 
 
+def cal_prob_sent(processed_classifier, test_sent, total_files, final_merged_map):
+    total_prob = 1.0
+    words = test_sent.rstrip().lstrip().split()
+    total_prob *= len(processed_classifier.files)/total_files
+    print(words)
+    for word in words:
+        top = processed_classifier.words_map.get(word, 0) + 1
+        bottom = processed_classifier.total_words + len(final_merged_map)
+        total_prob *= (top/bottom)
+    return total_prob
+
+
 def return_lowered_lines(file_path):
     f = open(file_path)
     lines = f.readlines()
