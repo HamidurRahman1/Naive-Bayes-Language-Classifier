@@ -147,13 +147,13 @@ import os
 from string import punctuation
 
 
-def cal_prob_sent(processed_classifier, test_sent, total_files, final_merged_map):
+def cal_prob_sent(processed_classifier_obj, test_sent, total_files, final_merged_map):
     total_prob = 1.0
     words = test_sent.rstrip().lstrip().split()
-    total_prob *= len(processed_classifier.files)/total_files
+    total_prob *= len(processed_classifier_obj.files)/total_files
     for word in words:
-        top = processed_classifier.words_map.get(word, 0) + 1
-        bottom = processed_classifier.total_words + len(final_merged_map)
+        top = processed_classifier_obj.words_map.get(word, 0) + 1
+        bottom = processed_classifier_obj.total_words + len(final_merged_map)
         total_prob *= (top/bottom)
     return total_prob
 
@@ -257,8 +257,7 @@ def read_strip_split_map_dir_wo_pun_dr1(directory):
     files = get_all_files_dir(directory)
     for file in files:
         file_map = read_strip_split_map_file_wo_pun(directory+file)
-        directory_map = directory_map.update(file_map)
-        # print(merge_maps(directory_map, file_map))
+        directory_map = merge(directory_map, file_map)
     return directory_map
 
 
