@@ -2,16 +2,9 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="0f77118e-23e0-42e3-91ba-d47b470cfcd8" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/Classes.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Main.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Util.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/ans.txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/small-corpus/test/test.txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/small-corpus/train/action/a1.txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/small-corpus/train/action/a2.txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/small-corpus/train/action/a3.txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/small-corpus/train/comedy/c1.txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/small-corpus/train/comedy/c2.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Main.py" beforeDir="false" afterPath="$PROJECT_DIR$/Main.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Util.py" beforeDir="false" afterPath="$PROJECT_DIR$/Util.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />

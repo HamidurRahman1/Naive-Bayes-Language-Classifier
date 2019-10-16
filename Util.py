@@ -290,3 +290,15 @@ def make_vector_file(file_path):
 def merge_maps(map1, map2):
     return {**map1, **map2}
 
+
+def merge(map1, map2):
+    merged = dict(map1)
+    for k in map2.keys():
+        if k in merged.keys():
+            nv = map2.get(k)
+            ov = merged.get(k)
+            merged[k] = nv + ov
+        else:
+            merged[k] = map2.get(k)
+    return merged
+
