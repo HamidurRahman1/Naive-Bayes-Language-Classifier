@@ -1,0 +1,8 @@
+train-pos-files = 12500
+train-pos-unique-words = 88155
+train-pos-total-words = 2947759
+
+train-neg-files = 12500
+train-neg-unique-words = 86594
+train-neg-total-words = 2874055
+

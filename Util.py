@@ -166,12 +166,24 @@ def cal_prob_sent(processed_classifier_obj, test_sent, total_files, final_merged
     return total_prob
 
 
+def cal_prob_test_file(processed_class_obj, test_file, total_files, train_words):
+    total_probability = 1.0
+    words = remove_punctuations(make_words(return_lowered_lines(test_file)))
+    total_probability *= processed_class_obj.total_files/total_files
+    for word in words:
+        top = processed_class_obj.words_map.get(word, 0) + 1
+        bottom = processed_class_obj.total_words + train_words
+        total_probability *= top/bottom
+    return total_probability
+
+
 def return_lowered_lines(file_path):
     f = open(file_path)
     lines = f.readlines()
     new_lines = list()
     for line in lines:
         new_lines.append(line.rstrip().lower())
+    f.close()
     return new_lines
 
 
@@ -200,10 +212,10 @@ def make_map_words(words):
 
 def remove_punctuations(words):
     new_words = list()
-    for w in words:
-        w = w.strip(punctuation)
-        if len(w) != 0:
-            new_words.append(w)
+    for word in words:
+        word = word.strip(punctuation)
+        if len(word) != 0:
+            new_words.append(word)
     return new_words
 
 
@@ -265,7 +277,7 @@ def read_strip_split_map_dir_wo_pun_dr1(directory):
     files = get_all_files_dir(directory)
     for file in files:
         file_map = read_strip_split_map_file_wo_pun(directory+file)
-        directory_map = merge(directory_map, file_map)
+        directory_map = merge1(directory_map, file_map)
     return directory_map
 
 
