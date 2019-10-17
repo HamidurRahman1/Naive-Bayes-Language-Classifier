@@ -3,7 +3,7 @@ import os
 from Classes import PreProcess
 import datetime
 
-from Util import do_demo
+from Util import do_original
 
-do_demo(PreProcess)
+do_original(PreProcess)
 
