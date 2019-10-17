@@ -145,6 +145,14 @@
 
 import os
 from string import punctuation
+from collections import Counter
+
+
+def merge1(map1, map2):
+    new_map1 = Counter(map1)
+    new_map2 = Counter(map2)
+    new_map1.update(new_map2)
+    return new_map1
 
 
 def cal_prob_sent(processed_classifier_obj, test_sent, total_files, final_merged_map):
