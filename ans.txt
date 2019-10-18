@@ -6,3 +6,5 @@ train-neg-files = 12500
 train-neg-unique-words = 86594
 train-neg-total-words = 2874055
 
+test-pos = 507 neg
+test-neg = 125 pos

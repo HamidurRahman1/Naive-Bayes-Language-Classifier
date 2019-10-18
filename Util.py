@@ -2,7 +2,7 @@
 import os
 from string import punctuation
 from collections import Counter
-
+import difflib
 import datetime
 
 
@@ -26,7 +26,8 @@ def cal_prob_sent(processed_classifier_obj, test_sent, total_files, final_merged
 
 def cal_prob_test_file(processed_class_obj, test_file, total_train_files, total_train_words):
     total_probability = 1.0
-    words = remove_punctuations(make_words(return_lowered_lines(test_file)))
+    # words = remove_punctuations(make_words(return_lowered_lines(test_file)))
+    words = separate_punctuations(make_words(return_lowered_lines(test_file)))
     total_probability *= processed_class_obj.total_files/total_train_files
     for word in words:
         top = processed_class_obj.words_map.get(word, 0) + 1
@@ -91,6 +92,26 @@ def remove_punctuations(words):
         if len(word) != 0:
             new_words.append(word)
     return new_words
+
+
+def separate_punctuations(words):
+    new_words = list()
+    for word in words:
+        old = (word + '.')[:-1]
+        word = word.strip(punctuation)
+        if len(word) != 0:
+            new_words.append(word)
+        if len(word) == 0:
+            new_words.extend(find_difference(old, word))
+    return new_words
+
+
+def find_difference(old, new_word):
+    parts = [li for li in difflib.ndiff(old, new_word) if li[0] != ' ']
+    new_word_list = list()
+    for part in parts:
+        new_word_list.extend(part.split())
+    return new_word_list
 
 
 def make_lines_from_dir(file_dir):
@@ -174,12 +195,6 @@ def lines_from_dir(directory, files=None):
     return lines
 
 
-def make_vector_file(file_path):
-    lines = return_lowered_lines(file_path)
-    words_map = read_strip_split_map_file_wo_pun(file_path)
-    return lines, words_map
-
-
 def merge(map1, map2):
     merged = dict(map1)
     for k in map2.keys():
@@ -194,6 +209,10 @@ def merge(map1, map2):
 
 def clear_file(file):
     open(file, "w").close()
+
+
+def accuracy():
+    pass
 
 
 def do_original(PreProcess):
@@ -226,13 +245,52 @@ def do_original(PreProcess):
     class_predictor_dir(processed_train_neg, processed_train_pos, test_neg, total_files, total_words,
                         neg_pos)
 
-    print("Out of all test-pos -> ", processed_train_pos.total_files, " : ",
-          len(return_lowered_lines(pos_neg)), " are neg")
-    print("Out of all test-neg -> ", processed_train_neg.total_files, " : ",
-          len(return_lowered_lines(neg_pos)), " are pos")
+    pos_in_neg = len(return_lowered_lines(neg_pos))
+    neg_in_pos = len(return_lowered_lines(pos_neg))
+    print("Out of all test-pos -> ", processed_train_pos.total_files, " : ", neg_in_pos, " are neg")
+    print("Out of all test-neg -> ", processed_train_neg.total_files, " : ", pos_in_neg, " are pos")
 
     print(datetime.datetime.now()-a)
-    print("PROGRAM ENDED")
+    print("PROGRAM FINISHED")
+
+
+def do_original_w(PreProcess):
+    print("PROGRAM STARTED")
+    train_pos = "/Users/hamidurrahman/Downloads/CSCI381/hw2/movie-review-HW2/aclImdb/train/pos/"
+    train_neg = "/Users/hamidurrahman/Downloads/CSCI381/hw2/movie-review-HW2/aclImdb/train/neg/"
+
+    test_pos = "/Users/hamidurrahman/Downloads/CSCI381/hw2/movie-review-HW2/aclImdb/test/pos/"
+    test_neg = "/Users/hamidurrahman/Downloads/CSCI381/hw2/movie-review-HW2/aclImdb/test/neg/"
+
+    pos_neg = os.getcwd()+"/output/pos/neg.txt"
+    neg_pos = os.getcwd()+"/output/neg/pos.txt"
+
+    a = datetime.datetime.now()
+
+    clear_file(pos_neg)
+    clear_file(neg_pos)
+
+    processed_train_pos = PreProcess(train_pos)
+    processed_train_neg = PreProcess(train_neg)
+    merged = merge1(processed_train_pos.words_map, processed_train_neg.words_map)
+    total_words = len(merged)
+
+    print("time taken to train the model", datetime.datetime.now()-a)
+
+    total_files = processed_train_pos.total_files + processed_train_neg.total_files
+
+    class_predictor_dir(processed_train_pos, processed_train_neg, test_pos, total_files, total_words,
+                        pos_neg)
+    class_predictor_dir(processed_train_neg, processed_train_pos, test_neg, total_files, total_words,
+                        neg_pos)
+
+    pos_in_neg = len(return_lowered_lines(neg_pos))
+    neg_in_pos = len(return_lowered_lines(pos_neg))
+    print("Out of all test-pos -> ", processed_train_pos.total_files, " : ", neg_in_pos, " are neg")
+    print("Out of all test-neg -> ", processed_train_neg.total_files, " : ", pos_in_neg, " are pos")
+
+    print(datetime.datetime.now()-a)
+    print("PROGRAM FINISHED")
 
 
 def do_demo(PreProcess):
