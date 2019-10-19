@@ -1,9 +1,13 @@
 
 import os
 from Classes import PreProcess
+from string import punctuation
+from Util import remove_punctuations_re
+from Util import test
 import datetime
+import re
 
-from Util import do_original_w
+from Util import do_original
 
-# do_original_w(PreProcess)
-print(100-(119/12500)*100)
+# do_original(PreProcess)
+test()

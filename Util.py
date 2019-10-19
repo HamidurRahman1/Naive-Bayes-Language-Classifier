@@ -4,7 +4,7 @@ from string import punctuation
 from collections import Counter
 import difflib
 import datetime
-
+import re
 
 def merge1(map1, map2):
     new_map1 = Counter(map1)
@@ -26,7 +26,7 @@ def cal_prob_sent(processed_classifier_obj, test_sent, total_files, final_merged
 
 def cal_prob_test_file(processed_class_obj, test_file, total_train_files, total_train_words):
     total_probability = 1.0
-    # words = remove_punctuations(make_words(return_lowered_lines(test_file)))
+    words = remove_punctuations(make_words(return_lowered_lines(test_file)))
     words = separate_punctuations(make_words(return_lowered_lines(test_file)))
     total_probability *= processed_class_obj.total_files/total_train_files
     for word in words:
@@ -92,6 +92,33 @@ def remove_punctuations(words):
         if len(word) != 0:
             new_words.append(word)
     return new_words
+
+
+def remove_punctuations_re(words):
+    new_words = list()
+    for word in words:
+        lst = do_regex(word)
+        filtered = list(filter(None, lst))
+        new_words.extend(filtered)
+    return new_words
+
+
+def do_regex(word):
+    word = word.strip(punctuation)
+    # r1 = "`~!@#$%^&*()_+\\[]=<,>.?;:{}|/"
+    r2 = "-{2,}"
+    r3 = "'{2,}"
+    lw = list()
+    if len(word) != 0:
+        f1 = re.split(r'[`~!@#$%^&*()_+={}|\\/[:;",<>.\]?]\\*', word)
+        # f1 = re.split(r1, word)
+        for e in f1:
+            l1 = list(re.split(r2, e))
+            lw.extend(l1)
+            l2 = list(re.split(r3, e))
+            lw.extend(l2)
+            lw.remove(e)
+    return lw
 
 
 def separate_punctuations(words):
@@ -211,8 +238,8 @@ def clear_file(file):
     open(file, "w").close()
 
 
-def accuracy():
-    pass
+def accuracy(total_mismatch, total_files):
+    return 100-(total_mismatch/total_files)*100
 
 
 def do_original(PreProcess):
@@ -235,7 +262,7 @@ def do_original(PreProcess):
     processed_train_neg = PreProcess(train_neg)
     merged = merge1(processed_train_pos.words_map, processed_train_neg.words_map)
     total_words = len(merged)
-
+    write_to_file_map(merged)
     print("time taken to train the model", datetime.datetime.now()-a)
 
     total_files = processed_train_pos.total_files + processed_train_neg.total_files
@@ -250,11 +277,17 @@ def do_original(PreProcess):
     print("Out of all test-pos -> ", processed_train_pos.total_files, " : ", neg_in_pos, " are neg")
     print("Out of all test-neg -> ", processed_train_neg.total_files, " : ", pos_in_neg, " are pos")
 
+    print("given all test-pos files, my model predicted that it is : ",
+          accuracy(neg_in_pos, processed_train_pos.total_files), "% accurate")
+
+    print("given all test-neg files, my model predicted that it is : ",
+          accuracy(pos_in_neg, processed_train_neg.total_files), "% accurate")
+
     print(datetime.datetime.now()-a)
     print("PROGRAM FINISHED")
 
 
-def do_original_w(PreProcess):
+def do_original_keep_pun(PreProcess):
     print("PROGRAM STARTED")
     train_pos = "/Users/hamidurrahman/Downloads/CSCI381/hw2/movie-review-HW2/aclImdb/train/pos/"
     train_neg = "/Users/hamidurrahman/Downloads/CSCI381/hw2/movie-review-HW2/aclImdb/train/neg/"
@@ -275,7 +308,7 @@ def do_original_w(PreProcess):
     merged = merge1(processed_train_pos.words_map, processed_train_neg.words_map)
     total_words = len(merged)
 
-    print("time taken to train the model", datetime.datetime.now()-a)
+    print("time taken to train the model:", datetime.datetime.now()-a)
 
     total_files = processed_train_pos.total_files + processed_train_neg.total_files
 
@@ -289,11 +322,17 @@ def do_original_w(PreProcess):
     print("Out of all test-pos -> ", processed_train_pos.total_files, " : ", neg_in_pos, " are neg")
     print("Out of all test-neg -> ", processed_train_neg.total_files, " : ", pos_in_neg, " are pos")
 
+    print("given all test-pos files, my model predicted that it is : ",
+          accuracy(neg_in_pos, processed_train_pos.total_files), "% accurate")
+
+    print("given all test-neg files, my model predicted that it is : ",
+          accuracy(pos_in_neg, processed_train_neg.total_files), "% accurate")
+
     print(datetime.datetime.now()-a)
     print("PROGRAM FINISHED")
 
 
-def do_demo(PreProcess):
+def do_small_corpus(PreProcess):
     action_train = os.getcwd()+"/small-corpus/train/action/"
     comedy_train = os.getcwd()+"/small-corpus/train/comedy/"
 
@@ -325,3 +364,16 @@ def do_demo(PreProcess):
           len(return_lowered_lines(comedy_action)), " are action")
 
     print(datetime.datetime.now()-a)
+
+
+def write_to_file_map(map):
+    f = open("merged_map.txt", "w+")
+    for k, v in map.items():
+        f.write(str(k)+"\t"+str(v)+"\n")
+    f.close()
+
+
+def test():
+    t = "The]. rain\\in //Spain` a----f. 'a'a' miller-mac.<br *k &i'm= a''''b [a,h p]"
+    print(t)
+    print(remove_punctuations_re(t.split()))
