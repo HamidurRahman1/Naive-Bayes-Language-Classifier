@@ -1,16 +1,20 @@
-train-pos-files = 12500
-train-pos-unique-words = 88155
-train-pos-total-words = 2947759
 
-train-neg-files = 12500
-train-neg-unique-words = 86594
-train-neg-total-words = 2874055
+test-pos = 3145 neg
+test-neg = 1513 pos
 
-test-pos = 507 neg
-test-neg = 125 pos
+test-pos-accuracy = 74.84%
+test-neg-accuracy = 87.89%
 
 q1: are you going to run it from the terminal?
 q2: what are the outputs?
 q3: can we do the project as we can implement?
-q4:
-q5:
+
+69524 2985222 pos
+68085 2912180 neg
+98751 merge
+5897402 values
+
+# args = sys.argv[1].split()
+# TRAIN = args[0]
+# TEST = args[1]
+# FILE_TO_WRITE = args[2]

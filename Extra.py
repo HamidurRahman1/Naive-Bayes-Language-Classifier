@@ -3,16 +3,17 @@
 from Util import *
 import datetime
 import difflib
+from Classes import PreProcess
 
 
 def cal_prob_sent(processed_classifier_obj, test_sent, total_files, final_merged_map):
-    total_prob = 1.0
+    total_prob = 0.0
     words = test_sent.rstrip().lstrip().split()
-    total_prob *= len(processed_classifier_obj.files)/total_files
+    total_prob += math.log(len(processed_classifier_obj.files)/total_files, 2)
     for word in words:
         top = processed_classifier_obj.words_map.get(word, 0) + 1
         bottom = processed_classifier_obj.total_words + len(final_merged_map)
-        total_prob *= (top/bottom)
+        total_prob += math.log((top/bottom), 2)
     return total_prob
 
 
@@ -21,42 +22,22 @@ def test():
     print(punctuations_regex(t.split()))
 
 
-def do_small_corpus(PreProcess):
+def do_small_corpus():
     action_train = os.getcwd()+"/small-corpus/train/action/"
     comedy_train = os.getcwd()+"/small-corpus/train/comedy/"
-
-    action_test = os.getcwd()+"/small-corpus/test/action/"
-    comedy_test = os.getcwd()+"/small-corpus/test/comedy/"
 
     action_comedy = os.getcwd()+"/output-demo/action/comedy.txt"
     comedy_action = os.getcwd()+"/output-demo/comedy/action.txt"
 
-    a = datetime.datetime.now()
-
-    clear_file(action_comedy)
-    clear_file(comedy_action)
+    # clear_file(action_comedy)
+    # clear_file(comedy_action)
 
     processed_train_action = PreProcess(action_train)
     processed_train_comedy = PreProcess(comedy_train)
     merged = merge1(processed_train_action.words_map, processed_train_comedy.words_map)
-    total_words = len(merged)
     total_files = processed_train_action.total_files+processed_train_comedy.total_files
-    print(processed_train_action.words_map)
-    print(merged)
-
     print(cal_prob_sent(processed_train_action, "fast couple shoot fly", total_files, merged))
-
-    # class_predictor_dir(processed_train_action, processed_train_comedy, action_test, total_files, total_words,
-    #                     action_comedy)
-    # class_predictor_dir(processed_train_comedy, processed_train_action, comedy_test, total_files, total_words,
-    #                     comedy_action)
-    #
-    # print("Out of all test-action -> ", processed_train_action.total_files, " : ",
-    #       len(return_lowered_lines(action_comedy)), " are comedy")
-    # print("Out of all test-comedy -> ", processed_train_comedy.total_files, " : ",
-    #       len(return_lowered_lines(comedy_action)), " are action")
-
-    print(datetime.datetime.now()-a)
+    print(cal_prob_sent(processed_train_comedy, "fast couple shoot fly", total_files, merged))
 
 
 def do_original(PreProcess):
@@ -280,4 +261,4 @@ def class_predictor_file_by_num(class1_obj, class2_obj, test_file, total_train_f
         return 0
 
 
-test()
+do_small_corpus()

@@ -15,7 +15,6 @@ def merge1(map1, map2):
 
 def cal_prob_test_file(processed_class_obj, test_file, total_train_files, total_train_words):
     words = punctuations_regex(make_words(return_lowered_lines(test_file)))
-    print(words)
     total_probability = math.log(processed_class_obj.total_files/total_train_files, 2)
     for word in words:
         top = processed_class_obj.words_map.get(word, 0) + 1
