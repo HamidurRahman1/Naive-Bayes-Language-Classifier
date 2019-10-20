@@ -3,11 +3,8 @@
   <component name="ChangeListManager">
     <list default="true" id="0f77118e-23e0-42e3-91ba-d47b470cfcd8" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Classes.py" beforeDir="false" afterPath="$PROJECT_DIR$/Classes.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Main.py" beforeDir="false" afterPath="$PROJECT_DIR$/Main.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Util.py" beforeDir="false" afterPath="$PROJECT_DIR$/Util.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/output/neg/pos.txt" beforeDir="false" afterPath="$PROJECT_DIR$/output/neg/pos.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/output/pos/neg.txt" beforeDir="false" afterPath="$PROJECT_DIR$/output/pos/neg.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ans.txt" beforeDir="false" afterPath="$PROJECT_DIR$/ans.txt" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -40,10 +37,11 @@
   </component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$" />
+      <recent name="$PROJECT_DIR$/test" />
       <recent name="$PROJECT_DIR$/output" />
       <recent name="$PROJECT_DIR$/small_corpus/train/action" />
       <recent name="$PROJECT_DIR$/small_corpus/test" />
-      <recent name="$PROJECT_DIR$/small_corpus/train" />
     </key>
   </component>
   <component name="RunDashboard">

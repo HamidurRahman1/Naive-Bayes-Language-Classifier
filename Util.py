@@ -6,6 +6,7 @@ import difflib
 import datetime
 import re
 
+
 def merge1(map1, map2):
     new_map1 = Counter(map1)
     new_map2 = Counter(map2)
@@ -105,13 +106,11 @@ def remove_punctuations_re(words):
 
 def do_regex(word):
     word = word.strip(punctuation)
-    # r1 = "`~!@#$%^&*()_+\\[]=<,>.?;:{}|/"
     r2 = "-{2,}"
     r3 = "'{2,}"
     lw = list()
     if len(word) != 0:
         f1 = re.split(r'[`~!@#$%^&*()_+={}|\\/[:;",<>.\]?]\\*', word)
-        # f1 = re.split(r1, word)
         for e in f1:
             l1 = list(re.split(r2, e))
             lw.extend(l1)
@@ -263,6 +262,7 @@ def do_original(PreProcess):
     merged = merge1(processed_train_pos.words_map, processed_train_neg.words_map)
     total_words = len(merged)
     write_to_file_map(merged)
+
     print("time taken to train the model", datetime.datetime.now()-a)
 
     total_files = processed_train_pos.total_files + processed_train_neg.total_files

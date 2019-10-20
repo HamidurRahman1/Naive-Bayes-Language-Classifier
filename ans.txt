@@ -8,3 +8,9 @@ train-neg-total-words = 2874055
 
 test-pos = 507 neg
 test-neg = 125 pos
+
+q1: are you going to run it from the terminal?
+q2: what are the outputs?
+q3: can we do the project as we can implement?
+q4:
+q5:
