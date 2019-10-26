@@ -3,7 +3,7 @@
 <pre>
 <strong>Objectives: </strong> 
   1. Train a model from a given trainig movie review data set (IMDB). 
-  2. Implement a Naive Bayes Classifier with bag of words and add some smoothing.
+  2. Implement a Naive Bayes Classifier with bag of words and add-one smoothing.
   3. Test this model against test data from the movie review and provide the accuracy of this model.
 </pre>
   
