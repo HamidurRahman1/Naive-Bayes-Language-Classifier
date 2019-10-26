@@ -1,80 +1,113 @@
 
+import os
 import math
-from pre_process import PreProcess
-from pre_process import merge1
-from pre_process import punctuations_regex
-from pre_process import make_words
-from pre_process import return_lowered_lines
-from pre_process import get_all_files_dir
-from pre_process import clear_file
+
+from Pre_Process import punctuations_regex
+from Pre_Process import make_words
+from Pre_Process import return_lowered_lines
+from Pre_Process import get_all_files_dir
+from Pre_Process import merge
+from Pre_Process import create_out_file
+
+from Pre_Process import TRAIN_POS_OUT_FILE
+from Pre_Process import TRAIN_NEG_OUT_FILE
+
+ROOT = os.getcwd()+"/movie-review-HW2/aclImdb/"
+TEST_POS = ROOT+"/test/pos/"
+TEST_NEG = ROOT+"/test/neg/"
+MOVIE_OUTPUT_PREDICTION = "MOVIE-OUTPUT-PREDICTION.txt"
+MOVIE_OUTPUT_FET_PARAM = "movie-review-BOW.NB"
+TRAIN_POS_FILE = TRAIN_POS_OUT_FILE
+TRAIN_NEG_FILE = TRAIN_NEG_OUT_FILE
+POS_IND = "+"
+NEG_IND = "-"
+TEST_POS_FILES = 60
+TEST_NEG_FILES = 60
+TOTAL_FILES = TEST_POS_FILES+TEST_NEG_FILES
 
 
-def cal_prob_test_file(processed_class_obj, test_file, total_train_files, total_train_words):
-    words = punctuations_regex(make_words(return_lowered_lines(test_file)))
-    total_probability = math.log((processed_class_obj.total_files/total_train_files), 2)
+def read_words_make_map(file_path):
+    file = open(file_path)
+    line = file.readline().rstrip()
+    words = line.split()
+    word_map = dict()
     for word in words:
-        top = processed_class_obj.words_map.get(word, 0) + 1
-        bottom = processed_class_obj.total_words + total_train_words
+        try:
+            word_map[word] += 1
+        except KeyError:
+            word_map[word] = 1
+    return word_map
+
+
+def cal_prob_test_file(class_map, total_words, test_file, total_train_words, IND, FEAT):
+    words = punctuations_regex(make_words(return_lowered_lines(test_file)))
+    total_probability = math.log((TEST_POS_FILES/TOTAL_FILES), 2)
+    for word in words:
+        top = class_map.get(word, 0) + 1
+        bottom = total_words + total_train_words
         total_probability += math.log((top/bottom), 2)
+        FEAT.write("P( "+word+" | "+IND+" ) = " + str(top/bottom) + "\n")
     return total_probability
 
 
-def class_predictor_dir(class1_obj, class2_obj, directory, total_train_files, total_train_words, file_to_write):
-    files = get_all_files_dir(directory)
-    for file in files:
-        class_predictor_file(class1_obj, class2_obj, directory+file,
-                             total_train_files, total_train_words, file_to_write)
-
-
-def class_predictor_file(class1_obj, class2_obj, test_file, total_train_files, total_train_words, file_to_write):
-    class1_probability = cal_prob_test_file(class1_obj, test_file, total_train_files, total_train_words)
-    class2_probability = cal_prob_test_file(class2_obj, test_file, total_train_files, total_train_words)
+def class_predictor_file(map1, map1_words, map2, map2_words, directory,
+                         test_file, total_train_words, IND1, IND2, OUT, FEAT):
+    class1_probability = cal_prob_test_file(map1, map1_words, directory+test_file, total_train_words, IND1, FEAT)
+    class2_probability = cal_prob_test_file(map2, map2_words, directory+test_file, total_train_words, IND2, FEAT)
     if class2_probability > class1_probability:
-        file_obj = open(file_to_write, "a")
-        file_obj.write(str(1) + "\n")
-        file_obj.close()
+        OUT.write(test_file + ", " + IND2 + ", " + IND1 + "\n")
+        return 1
+    else:
+        OUT.write(test_file + ", " + IND1 + ", " + IND2 + "\n")
+        return 0
+
+
+def class_predictor_dir(map1, map2, directory, total_train_words, ind1, ind2, out, feat):
+    files = get_all_files_dir(directory)
+    map1_words = sum(map1.values())
+    map2_words = sum(map2.values())
+    counter = 0
+    for file in files:
+        counter += class_predictor_file(map1, map1_words, map2, map2_words,
+                                        directory, file, total_train_words, ind1, ind2, out, feat)
+    return counter
 
 
 def accuracy(total_mismatch, files):
     return 100-(total_mismatch/files)*100
 
 
-POS = "/pos/"
-NEG = "/neg/"
+def run_movie_class_predictor():
+    print("PROGRAM STARTED")
 
-TRAIN = "/Users/hamidurrahman/Downloads/CSCI381/hw2/movie-review-HW2/aclImdb/train"
-TEST = "/Users/hamidurrahman/Downloads/CSCI381/hw2/movie-review-HW2/aclImdb/test"
+    train_pos_map = read_words_make_map(TRAIN_POS_FILE)
+    train_neg_map = read_words_make_map(TRAIN_NEG_FILE)
+    merged_map = merge(train_pos_map, train_neg_map)
+    total_train_keys = len(merged_map)
 
-TRAIN_POS = TRAIN+POS
-TRAIN_NEG = TRAIN+NEG
+    create_out_file(MOVIE_OUTPUT_PREDICTION)
+    create_out_file(MOVIE_OUTPUT_FET_PARAM)
 
-TEST_POS = TEST+POS
-TEST_NEG = TEST+NEG
+    print("2 FILES WILL BE CREATED WHERE OUTPUT WILL BE SAVED - \n1. "
+          ""+MOVIE_OUTPUT_PREDICTION+" 2."+MOVIE_OUTPUT_FET_PARAM)
 
-processed_train_pos = PreProcess(TRAIN_POS)
-processed_train_neg = PreProcess(TRAIN_NEG)
-merged = merge1(processed_train_pos.words_map, processed_train_neg.words_map)
-total_train_len = len(merged)
-print(total_train_len)
-print(sum(merged.values()))
+    OUT_PRED = open(MOVIE_OUTPUT_PREDICTION, "a")
+    OUT_FEAT_PARAM = open(MOVIE_OUTPUT_FET_PARAM, "a")
 
-pos_neg_file = "pos_neg_file.txt"
-neg_pos_file = "neg_pos_file.txt"
+    OUT_PRED.write("file, my-prediction, label"+"\n")
 
-clear_file(pos_neg_file)
-clear_file(neg_pos_file)
+    pos_neg = class_predictor_dir(train_pos_map, train_neg_map, TEST_POS, total_train_keys, POS_IND, NEG_IND,
+                                  OUT_PRED, OUT_FEAT_PARAM)
+    neg_pos = class_predictor_dir(train_neg_map, train_pos_map, TEST_NEG, total_train_keys, NEG_IND, POS_IND,
+                                  OUT_PRED, OUT_FEAT_PARAM)
 
-total_files = processed_train_pos.total_files + processed_train_neg.total_files
-class_predictor_dir(processed_train_pos, processed_train_neg, TEST_POS, total_files, total_train_len, pos_neg_file)
-class_predictor_dir(processed_train_neg, processed_train_pos, TEST_NEG, total_files, total_train_len, neg_pos_file)
+    pos_accuracy = accuracy(pos_neg, TEST_POS_FILES)
+    neg_accuracy = accuracy(neg_pos, TEST_NEG_FILES)
+    OUT_PRED.write("Overall accuracy: "+str((pos_accuracy+neg_accuracy)/2))
+    OUT_PRED.close()
+    OUT_FEAT_PARAM.close()
+    print("PROGRAM FINISHED")
 
-pos_in_neg = len(return_lowered_lines(neg_pos_file))
-neg_in_pos = len(return_lowered_lines(pos_neg_file))
-print("Out of all test-pos -> ", processed_train_pos.total_files, " :", neg_in_pos, "are neg")
-print("Out of all test-neg -> ", processed_train_neg.total_files, " :", pos_in_neg, "are pos")
 
-print("given all test-pos files, my model predicted that it is :",
-      accuracy(neg_in_pos, processed_train_pos.total_files), "% accurate")
+run_movie_class_predictor()
 
-print("given all test-neg files, my model predicted that it is :",
-      accuracy(pos_in_neg, processed_train_neg.total_files), "% accurate")
