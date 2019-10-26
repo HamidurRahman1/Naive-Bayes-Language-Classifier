@@ -2,17 +2,12 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="0f77118e-23e0-42e3-91ba-d47b470cfcd8" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/../CSCI-370-Final-Project-Demo" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../NLP" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/vcs.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Extra.py" beforeDir="false" afterPath="$PROJECT_DIR$/Extra.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Main.py" beforeDir="false" afterPath="$PROJECT_DIR$/Main.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/NB.py" beforeDir="false" afterPath="$PROJECT_DIR$/NB.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Util.py" beforeDir="false" afterPath="$PROJECT_DIR$/Util.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/a.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/ans.txt" beforeDir="false" afterPath="$PROJECT_DIR$/ans.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/merged_map.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/output-demo/action/comedy.txt" beforeDir="false" afterPath="$PROJECT_DIR$/pre_process.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/output-demo/comedy/action.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/output/neg/pos.txt" beforeDir="false" afterPath="$PROJECT_DIR$/output/neg/pos.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Projects" beforeDir="false" afterPath="$PROJECT_DIR$/../Projects" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -28,7 +23,7 @@
     </option>
   </component>
   <component name="Git.Settings">
-    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
   <component name="IgnoredFileRootStore">
     <option name="generatedRoots">
