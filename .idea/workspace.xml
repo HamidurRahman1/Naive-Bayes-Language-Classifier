@@ -2,12 +2,21 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="0f77118e-23e0-42e3-91ba-d47b470cfcd8" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/../CSCI-370-Final-Project-Demo" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../NLP" beforeDir="false" />
+      <change afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Coding-Problems" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/Naïve-Bayes-Classifier-for-Movie-Review-Classification.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/Naïve-Bayes-Classifier-for-Movie-Review-Classification.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/NB.py" beforeDir="false" afterPath="$PROJECT_DIR$/NB.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Pre_Process.py" beforeDir="false" afterPath="$PROJECT_DIR$/Pre_Process.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Projects" beforeDir="false" afterPath="$PROJECT_DIR$/../Projects" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../springBootCRUDRESTfulWebservices/.gitignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../springBootCRUDRESTfulWebservices/.mvn/wrapper/MavenWrapperDownloader.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../springBootCRUDRESTfulWebservices/.mvn/wrapper/maven-wrapper.jar" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../springBootCRUDRESTfulWebservices/.mvn/wrapper/maven-wrapper.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../springBootCRUDRESTfulWebservices/mvnw" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../springBootCRUDRESTfulWebservices/mvnw.cmd" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../springBootCRUDRESTfulWebservices/pom.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../springBootCRUDRESTfulWebservices/src/main/java/com/hamidur/springBootCRUDRESTfulWebservices/SpringBootCRUDRESTfulWebservicesApplication.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../springBootCRUDRESTfulWebservices/src/main/resources/application.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../springBootCRUDRESTfulWebservices/src/test/java/com/hamidur/springBootCRUDRESTfulWebservices/SpringBootCRUDRESTfulWebservicesApplicationTests.java" beforeDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -32,10 +41,18 @@
       </set>
     </option>
   </component>
+  <component name="JsBuildToolGruntFileManager" detection-done="true" sorting="DEFINITION_ORDER" />
+  <component name="JsBuildToolPackageJson" detection-done="true" sorting="DEFINITION_ORDER" />
+  <component name="JsGulpfileManager">
+    <detection-done>true</detection-done>
+    <sorting>DEFINITION_ORDER</sorting>
+  </component>
   <component name="ProjectId" id="1S8A2KfnadoUxlauUvV6zCLSUTe" />
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="PropertiesComponent">
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/movie-review-HW2/aclImdb/train" />
+    <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="aspect.path.notification.shown" value="true" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="settings.editor.selected.configurable" value="com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable" />
   </component>
   <component name="RecentsManager">
@@ -62,7 +79,7 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="Python.NB">
+  <component name="RunManager" selected="Python.Extra">
     <configuration name="Extra" type="PythonConfigurationType" factoryName="Python" temporary="true">
       <module name="Naïve-Bayes-Classifier-for-Movie-Review-Classification" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -126,13 +143,6 @@
       <option name="INPUT_FILE" value="" />
       <method v="2" />
     </configuration>
-    <recent_temporary>
-      <list>
-        <item itemvalue="Python.NB" />
-        <item itemvalue="Python.Main" />
-        <item itemvalue="Python.Extra" />
-      </list>
-    </recent_temporary>
   </component>
   <component name="SvnConfiguration">
     <configuration />
@@ -144,8 +154,15 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1570934640443</updated>
+      <workItem from="1598151099663" duration="3000" />
     </task>
     <servers />
+  </component>
+  <component name="TimeTrackingManager">
+    <option name="totallyTimeSpent" value="3000" />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="1" />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
     <option name="TAB_STATES">
